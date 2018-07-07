@@ -1,0 +1,81 @@
+/* define constants up here */
+:root {
+  --banner-bg-start: #fd5e6d;
+  --banner-bg-end: #eb3362;
+  /* --banner-bg-color: #f083b4; */
+  --produce-gray: #cfcfcf;
+  --search-gray: #f2f2f2;
+}
+
+p {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* banner that shows produce 48 at top of screen */
+#top-banner {
+  background: radial-gradient(circle, var(--banner-bg-start), var(--banner-bg-end) 60%);
+  /* background-color: var(--banner-bg-color); */
+  padding: 25px;
+
+  /* these will be unnecessary once we get the banner image */
+  color: white;
+  text-align: center;
+}
+#banner-image {
+  width: 125px;
+  margin-bottom: 15px;
+}
+#banner-title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+}
+#banner-subtitle {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #dfdfdf;
+  font-size: 12px;
+}
+
+#table {
+  height: 60vh;
+  min-height: 400px;
+  width: 300px;
+  box-shadow: 0 0 20px 1px var(--produce-gray);
+  border-radius: 10px;
+  border: 1px solid var(--produce-gray);
+  margin: 10px;
+}
+#table__filter-container {
+  padding: 5px;
+  border-bottom: 1px solid var(--produce-gray);
+}
+#table__filter-input {
+  padding: 5px;
+  height: 100%;
+  width: 60%;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--search-gray);
+  outline: 0;
+}
+#table__filter-input:before {
+  /* background-image: url("assets/search.png"); */
+  background-color: "black";
+  content: "";
+  height: 120px;
+  width: 120px;
+}
+
+
+.padded-box {
+  padding: 40px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
