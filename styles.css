@@ -1,10 +1,14 @@
 /* define constants up here */
 :root {
   --banner-bg-start: #fd5e6d;
-  --banner-bg-end: #eb3362;
+  --banner-bg-end: #ef5079;
   /* --banner-bg-color: #f083b4; */
-  --produce-gray: #cfcfcf;
+  --produce-gray: #e4e4e4;
+  --search-text-gray: #949494;
   --search-gray: #f2f2f2;
+  --affil-gray: #909090;
+  --name-gray: #2b2b2b;
+  --other-name-gray: #444444;
 
   /* ranking border colors */
   --a-rank: #fb1168;
@@ -53,8 +57,8 @@ body {
   height: 60vh;
   min-height: 400px;
   width: 300px;
-  box-shadow: 0 0 20px 1px var(--produce-gray);
-  border-radius: 10px;
+  /* box-shadow: 0 0 20px 1px var(--produce-gray); */
+  border-radius: 8px;
   border: 1px solid var(--produce-gray);
   margin: 10px;
   display: flex;
@@ -70,7 +74,7 @@ body {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: var(--search-gray);
   border: none;
   outline: 0;
@@ -81,7 +85,7 @@ body {
   background-repeat: no-repeat;
 }
 ::placeholder {
-  color: var(--produce-gray);
+  color: var(--search-text-gray);
 }
 
 /* Styles for table entries */
@@ -131,15 +135,15 @@ body {
 }
 .table__entry-text .name {
   font-size: 12px;
-  color: black;
+  color: var(--name-gray);
 }
 .table__entry .hangul {
-  color: gray;
   font-size: 12px;
+  color: var(--other-name-gray);
 }
 .table__entry .company {
-  color: lightgray;
-  font-size: 12px;
+  font-size: 10px;
+  color: var(--affil-gray);
   display: block;
 }
 
