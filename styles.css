@@ -5,6 +5,14 @@
   /* --banner-bg-color: #f083b4; */
   --produce-gray: #cfcfcf;
   --search-gray: #f2f2f2;
+
+  /* ranking border colors */
+  --a-rank: #fb1168;
+  --b-rank: #fc840c;
+  --c-rank: #ffc407;
+  --d-rank: #19b468;
+  --f-rank: #a6a6a4;
+
 }
 
 p {
@@ -16,7 +24,7 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* banner that shows produce 48 at top of screen */
+/* Styles for banner */
 #top-banner {
   background: radial-gradient(circle, var(--banner-bg-start), var(--banner-bg-end) 60%);
   /* background-color: var(--banner-bg-color); */
@@ -40,6 +48,7 @@ body {
   font-size: 12px;
 }
 
+/* Styles for table */
 #table {
   height: 60vh;
   min-height: 400px;
@@ -48,6 +57,8 @@ body {
   border-radius: 10px;
   border: 1px solid var(--produce-gray);
   margin: 10px;
+  display: flex;
+  flex-direction: column;
 }
 #table__filter-container {
   padding: 8px;
@@ -73,7 +84,66 @@ body {
   color: var(--produce-gray);
 }
 
+/* Styles for table entries */
+#table__entry-container {
+  overflow-y: scroll;
+}
+.table__entry {
+  display: flex;
+  align-items: flex-start;
+}
+.table__entry:hover {
+  background-color: #f0f0f0;
+}
+.table__entry-icon {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  /* background-image: url(assets/trainees/leegaeun.jpg);
+  background-size: 60px; */
+}
+.table__entry-img {
+  border-radius: 50%;
+  width: inherit;
+  height: inherit;
+}
+.table__entry-icon-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+/* Different entry borders */
+.a-rank-border {
+  border: 5px solid var(--a-rank);
+}
 
+.table__entry-text {
+  margin: auto 5px auto 5px;
+  /* margin: auto auto; */
+}
+.table__entry-text .name {
+  font-size: 12px;
+  color: black;
+}
+.table__entry .hangul {
+  color: gray;
+  font-size: 12px;
+}
+.table__entry .company {
+  color: lightgray;
+  font-size: 12px;
+  display: block;
+}
+
+/* Generic Styles */
 .padded-box {
   padding: 40px;
 }
