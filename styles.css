@@ -143,6 +143,61 @@ body {
   display: block;
 }
 
+/* Ranking Styles */
+#ranking__pyramid {
+  /* min-width: 350px; */
+  margin: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+#ranking__title {
+  text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 25px;
+}
+.ranking__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.ranking__entry-icon {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+}
+.ranking__entry-img {
+  border-radius: 50%;
+  width: inherit;
+  height: inherit;
+}
+.ranking__entry-icon-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.ranking__row-text {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.ranking__entry .name {
+  font-weight: 900;
+}
+.ranking__entry .company {
+  color: gray; /* fix this color plis :( */
+}
+
 /* Generic Styles */
 .padded-box {
   padding: 40px;
@@ -151,4 +206,5 @@ body {
 .flex-container {
   display: flex;
   flex-wrap: wrap-reverse;
+  justify-content: center;
 }
