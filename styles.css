@@ -6,6 +6,8 @@
   --produce-gray: #cfcfcf;
   --search-gray: #f2f2f2;
 
+  --checked-blue: #052ae2CC;
+
   /* ranking border colors */
   --a-rank: #fb1168;
   --b-rank: #fc840c;
@@ -111,6 +113,20 @@ body {
   border-radius: 50%;
   width: inherit;
   height: inherit;
+}
+/* only applied when an entry is selected/checked */
+.table__entry-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  /* blue background */
+  background-color: var(--checked-blue);
+  /* the padding insets the checkbox (makes it bigger/smaller) */
+  padding: 10px;
+  box-sizing: border-box;
 }
 .table__entry-icon-border {
   position: absolute;

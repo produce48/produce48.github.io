@@ -49,6 +49,20 @@ function convertCSVArrayToTraineeData(csvArrays) {
   return trainees;
 }
 
+// Master rerender method
+function rerender() {
+  clearTable();
+  populateTable(trainees);
+  // populateRanking();
+}
+
+function clearTable() {
+  let table = document.getElementById("table__entry-container");
+  while (table.firstChild) {
+    table.removeChild(table.firstChild);
+  }
+}
+
 // If the user has saved a ranking via id then recover it here
 // returns: List of ranked trainees
 function getRanking() {}
@@ -59,8 +73,13 @@ function populateTable(trainees) {
   let table = document.getElementById("table__entry-container");
   exampleEntry = table.children[0];
   for (let i = 0; i < trainees.length; i++) {
-    // table.appendChild(exampleEntry.cloneNode(true));
+    // generate and insert the html for a new trainee table entry
     table.insertAdjacentHTML('beforeend', populateTableEntry(trainees[i]));
+    // add the click listener to the just inserted element
+    let insertedEntry = table.lastChild;
+    insertedEntry.addEventListener("click", function (event) {
+      tableClicked(trainees[i]);
+    });
   }
 }
 
@@ -70,6 +89,7 @@ function populateTableEntry(trainee) {
     <div class="table__entry-icon">
       <img class="table__entry-img" src="assets/trainees/${ trainee.image }" />
       <div class="table__entry-icon-border ${ trainee.grade.toLowerCase() }-rank-border"></div>
+      ${ trainee.selected ? '<img class="table__entry-check" src="assets/check.png"/>' : ''}
     </div>
     <div class="table__entry-text">
       <span class="name"><strong>${ trainee.name_romanized }</strong></span>
@@ -101,6 +121,18 @@ function populateRanking() {
       currRank++;
     }
   }
+}
+
+// Event handlers for table
+function tableClicked(trainee) {
+  if (trainee.selected) {
+    trainee.selected = !trainee.selected;
+  }
+  else {
+    trainee.selected = true;
+  }
+  console.log(trainee);
+  rerender();
 }
 
 // holds the list of all trainees
