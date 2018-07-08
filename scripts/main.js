@@ -29,10 +29,16 @@ function populateRanking() {
   console.log(rankRows);
   let rankEntry = rankRows[0].children[0];
   console.log(rankEntry);
+  let currRank = 2;
   for (let i = 1; i < rowNums.length; i++) {
     let rankRow = rankRows[i];
     for (let j = 0; j < rowNums[i]; j++) {
-      rankRow.appendChild(rankEntry.cloneNode(true));
+      // clone and change the ranking number
+      let newEntry = rankEntry.cloneNode(true);
+      let badge = newEntry.getElementsByClassName("ranking__entry-icon-badge")[0];
+      badge.textContent = currRank;
+      rankRow.appendChild(newEntry);
+      currRank++;
     }
   }
 }

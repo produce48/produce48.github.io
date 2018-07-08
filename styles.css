@@ -185,14 +185,28 @@ body {
   border-radius: 50%;
   box-sizing: border-box;
 }
-.ranking__row-text {
-  font-family: 'Roboto Condensed', sans-serif;
+.ranking__entry-icon-badge {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  margin: auto;
+  border-radius: 50%;
+  background-color: var(--a-rank);
+  box-sizing: border-box;
+  padding: 2px;
+  /* badge text options */
   font-size: 8px;
   text-align: center;
-  margin-bottom: 10px;
+  color: white;
 }
-.ranking__entry .name {
-  font-weight: 900;
+.ranking__row-text {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 .ranking__entry .company {
   color: gray; /* fix this color plis :( */
