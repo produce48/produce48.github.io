@@ -124,6 +124,18 @@ body {
 .a-rank-border {
   border: 5px solid var(--a-rank);
 }
+.b-rank-border {
+  border: 5px solid var(--b-rank);
+}
+.c-rank-border {
+  border: 5px solid var(--c-rank);
+}
+.d-rank-border {
+  border: 5px solid var(--d-rank);
+}
+.f-rank-border {
+  border: 5px solid var(--f-rank);
+}
 
 .table__entry-text {
   margin: auto 5px auto 5px;
@@ -198,6 +210,7 @@ body {
   box-sizing: border-box;
   padding: 2px;
   /* badge text options */
+  font-weight: 900;
   font-size: 8px;
   text-align: center;
   color: white;
