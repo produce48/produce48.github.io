@@ -103,7 +103,6 @@ function populateRanking() {
   }
 }
 
-console.log(_);
 // holds the list of all trainees
 var trainees = [];
 // holds the ordered list of rankings that the user selects

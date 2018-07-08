@@ -91,6 +91,7 @@ body {
 .table__entry {
   display: flex;
   align-items: flex-start;
+  cursor: pointer;
 }
 .table__entry:hover {
   background-color: #f0f0f0;
