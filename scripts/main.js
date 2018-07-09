@@ -19,6 +19,7 @@ function readFromCSV(path) {
 // Follows this schema:
 /*
 trainee: {
+  id: ... // position in csv used for simple recognition
   name_romanized: ...
   name_hangul: ...
   name_japanese: ...
@@ -29,8 +30,9 @@ trainee: {
 }
 */
 function convertCSVArrayToTraineeData(csvArrays) {
-  trainees = csvArrays.map(function(traineeArray) {
+  trainees = csvArrays.map(function(traineeArray, index) {
     trainee = {};
+    trainee.id = index;
     trainee.name_romanized = traineeArray[0];
     if (traineeArray[2] === "-") {
       // trainee only has hangul
@@ -49,17 +51,70 @@ function convertCSVArrayToTraineeData(csvArrays) {
   return trainees;
 }
 
-// Master rerender method
-function rerender() {
+// Constructor for a blank trainee
+function newTrainee() {
+  return {
+    id: -1, // -1 denotes a blank trainee spot
+    name_romanized: '_',
+    company: '_',
+    grade: 'A',
+    image: 'emptyrank.png',
+  };
+}
+
+// Constructor for a blank ranking list
+function newRanking() {
+  // holds the ordered list of rankings that the user selects
+  let ranking = new Array(12);
+  for (let i = 0; i < ranking.length; i++) {
+    ranking[i] = newTrainee();
+  }
+  return ranking;
+}
+
+// rerender method for table (search box)
+// TODO: this site might be slow to rerender because it clears + adds everything each time
+function rerenderTable() {
   clearTable();
   populateTable(trainees);
   // populateRanking();
 }
 
+// rerender method for ranking
+function rerenderRanking() {
+  clearRanking();
+  populateRanking();
+}
+
+function removeAllChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
+// Clears out the table
 function clearTable() {
   let table = document.getElementById("table__entry-container");
-  while (table.firstChild) {
-    table.removeChild(table.firstChild);
+  // while (table.firstChild) {
+  //   table.removeChild(table.firstChild);
+  // }
+  removeAllChildren(table);
+}
+
+// Clears out the ranking
+function clearRanking() {
+  // Currently just duplicates first ranking entry
+  let ranking_chart = document.getElementById("ranking__pyramid");
+  let rankRows = Array.from(ranking_chart.children).slice(1); // remove the title element
+  // let rankEntry = rankRows[0].children[0];
+  for (let i = 0; i < rowNums.length; i++) {
+    let rankRow = rankRows[i];
+    for (let j = 0; j < rowNums[i]; j++) {
+      removeAllChildren(rankRow);
+      // while (rankRow.firstChild) {
+      //   rankRow.removeChild(rankRow.firstChild);
+      // }
+    }
   }
 }
 
@@ -74,10 +129,10 @@ function populateTable(trainees) {
   exampleEntry = table.children[0];
   for (let i = 0; i < trainees.length; i++) {
     // generate and insert the html for a new trainee table entry
-    table.insertAdjacentHTML('beforeend', populateTableEntry(trainees[i]));
+    table.insertAdjacentHTML("beforeend", populateTableEntry(trainees[i]));
     // add the click listener to the just inserted element
     let insertedEntry = table.lastChild;
-    insertedEntry.addEventListener("click", function (event) {
+    insertedEntry.addEventListener("click", function(event) {
       tableClicked(trainees[i]);
     });
   }
@@ -87,14 +142,18 @@ function populateTableEntry(trainee) {
   const tableEntry = `
   <div class="table__entry">
     <div class="table__entry-icon">
-      <img class="table__entry-img" src="assets/trainees/${ trainee.image }" />
-      <div class="table__entry-icon-border ${ trainee.grade.toLowerCase() }-rank-border"></div>
-      ${ trainee.selected ? '<img class="table__entry-check" src="assets/check.png"/>' : ''}
+      <img class="table__entry-img" src="assets/trainees/${trainee.image}" />
+      <div class="table__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border"></div>
+      ${
+        trainee.selected
+          ? '<img class="table__entry-check" src="assets/check.png"/>'
+          : ""
+      }
     </div>
     <div class="table__entry-text">
-      <span class="name"><strong>${ trainee.name_romanized }</strong></span>
-      <span class="hangul">(${ trainee.name_hangul })</span>
-      <span class="company">${ trainee.company.toUpperCase() }</span>
+      <span class="name"><strong>${trainee.name_romanized}</strong></span>
+      <span class="hangul">(${trainee.name_hangul})</span>
+      <span class="company">${trainee.company.toUpperCase()}</span>
     </div>
   </div>`;
   return tableEntry;
@@ -103,41 +162,83 @@ function populateTableEntry(trainee) {
 // Uses populated local data structure from getRanking to populate ranking
 function populateRanking() {
   // Currently just duplicates first ranking entry
-  let rowNums = [1, 2, 4, 5];
-  let ranking = document.getElementById("ranking__pyramid");
-  let rankRows = Array.from(ranking.children).slice(1); // remove the title element
-  let rankEntry = rankRows[0].children[0];
-  let currRank = 2;
-  for (let i = 1; i < rowNums.length; i++) {
+  let ranking_chart = document.getElementById("ranking__pyramid");
+  let rankRows = Array.from(ranking_chart.children).slice(1); // remove the title element
+  // let rankEntry = rankRows[0].children[0];
+  let currRank = 1;
+  for (let i = 0; i < rowNums.length; i++) {
     let rankRow = rankRows[i];
     for (let j = 0; j < rowNums[i]; j++) {
+      rankRow.insertAdjacentHTML("beforeend", populateRankingEntry(ranking[currRank - 1], currRank))
       // clone and change the ranking number
-      let newEntry = rankEntry.cloneNode(true);
-      let badge = newEntry.getElementsByClassName(
-        "ranking__entry-icon-badge"
-      )[0];
-      badge.textContent = currRank;
-      rankRow.appendChild(newEntry);
+      // let newEntry = rankEntry.cloneNode(true);
+      // let badge = newEntry.getElementsByClassName(
+      //   "ranking__entry-icon-badge"
+      // )[0];
+      // badge.textContent = currRank;
+      // rankRow.appendChild(newEntry);
       currRank++;
     }
   }
 }
 
+function populateRankingEntry(trainee, currRank) {
+  const rankingEntry = `
+  <div class="ranking__entry">
+    <div class="ranking__entry-icon">
+      <img class="ranking__entry-img" src="assets/trainees/${trainee.image}" />
+      <div class="ranking__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border"></div>
+      <div class="ranking__entry-icon-badge">${currRank}</div>
+    </div>
+    <div class="ranking__row-text">
+      <div class="name"><strong>${trainee.name_romanized}</strong></div>
+      <div class="company">${trainee.company.toUpperCase()}</div>
+    </div>
+  </div>`;
+  return rankingEntry;
+}
+
 // Event handlers for table
 function tableClicked(trainee) {
+  // Set the trainee as selected
   if (trainee.selected) {
     trainee.selected = !trainee.selected;
-  }
-  else {
+    // Remove the trainee from the ranking
+    removeRankedTrainee(trainee);
+  } else {
     trainee.selected = true;
+    // Add the trainee to the ranking
+    addRankedTrainee(trainee);
   }
   console.log(trainee);
-  rerender();
+  rerenderTable();
+  rerenderRanking();
 }
+
+// Finds the first blank spot for
+function addRankedTrainee(trainee) {
+  for (let i = 0; i < ranking.length; i++) {
+    if (ranking[i].id === -1) { // if spot is blank denoted by -1 id
+      ranking[i] = trainee;
+      return;
+    }
+  }
+}
+
+function removeRankedTrainee(trainee) {
+  for (let i = 0; i < ranking.length; i++) {
+    if (ranking[i].id === trainee.id) { // if trainee's match
+      ranking[i] = newTrainee();
+      return;
+    }
+  }
+}
+
 
 // holds the list of all trainees
 var trainees = [];
 // holds the ordered list of rankings that the user selects
-var ranking = [];
+var ranking = newRanking();
+const rowNums = [1, 2, 4, 5];
 readFromCSV("./trainee_info.csv");
 populateRanking();
