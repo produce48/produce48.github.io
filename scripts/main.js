@@ -154,7 +154,7 @@ function populateTableEntry(trainee) {
     <div class="table__entry-text">
       <span class="name"><strong>${trainee.name_romanized}</strong></span>
       <span class="hangul">(${trainee.name_hangul})</span>
-      <span class="companyandyear">${trainee.company.toUpperCase()} • 
+      <span class="companyandyear">${trainee.company.toUpperCase()} •
       ${trainee.birthyear}</span>
     </div>
   </div>`;
@@ -181,7 +181,7 @@ function populateRanking() {
       // badge.textContent = currRank;
       // rankRow.appendChild(newEntry);
       let insertedEntry = rankRow.lastChild;
-	  insertedEntry.addEventListener("click", function(event) {
+      insertedEntry.addEventListener("click", function(event) {
       	rankingClicked(currTrainee);
       });
       currRank++;
@@ -218,28 +218,35 @@ function populateRankingEntry(trainee, currRank) {
 
 // Event handlers for table
 function tableClicked(trainee) {
-  // Set the trainee as selected
   if (trainee.selected) {
-    trainee.selected = !trainee.selected;
     // Remove the trainee from the ranking
-    removeRankedTrainee(trainee);
+    let success = removeRankedTrainee(trainee);
+    if (success) { // if removed successfully
+      trainee.selected = !trainee.selected;
+    } else {
+      return;
+    }
   } else {
-    trainee.selected = true;
     // Add the trainee to the ranking
-    addRankedTrainee(trainee);
+    let success = addRankedTrainee(trainee);
+    if (success) { // if added successfully
+      trainee.selected = true;
+    } else {
+      return;
+    }
   }
   rerenderTable();
   rerenderRanking();
 }
 
-// Event handler for ranking 
+// Event handler for ranking
 function rankingClicked(trainee) {
 	if (trainee.selected) {
     trainee.selected = !trainee.selected;
     // Remove the trainee from the ranking
     removeRankedTrainee(trainee);
-  	}
-  	rerenderTable();
+  }
+  rerenderTable();
 	rerenderRanking();
 }
 
@@ -248,18 +255,20 @@ function addRankedTrainee(trainee) {
   for (let i = 0; i < ranking.length; i++) {
     if (ranking[i].id === -1) { // if spot is blank denoted by -1 id
       ranking[i] = trainee;
-      return;
+      return true;
     }
   }
+  return false;
 }
 
 function removeRankedTrainee(trainee) {
   for (let i = 0; i < ranking.length; i++) {
     if (ranking[i].id === trainee.id) { // if trainee's match
       ranking[i] = newTrainee();
-      return;
+      return true;
     }
   }
+  return false;
 }
 
 
