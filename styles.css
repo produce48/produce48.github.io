@@ -61,7 +61,7 @@ body {
   height: 60vh;
   min-height: 400px;
   width: 300px;
-  /* box-shadow: 0 0 20px 1px var(--produce-gray); */
+  box-shadow: 0px 2px 4px 0.1px var(--produce-gray);
   border-radius: 8px;
   border: 1px solid var(--produce-gray);
   margin: 10px;
