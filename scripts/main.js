@@ -55,9 +55,9 @@ function convertCSVArrayToTraineeData(csvArrays) {
 function newTrainee() {
   return {
     id: -1, // -1 denotes a blank trainee spot
-    name_romanized: '_',
-    company: '_',
-    grade: 'A',
+    name_romanized: '&#8203;',
+    company: '&#8203;',
+    grade: 'no',
     image: 'emptyrank.png',
   };
 }

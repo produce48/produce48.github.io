@@ -19,6 +19,7 @@
   --c-rank: #ffc407;
   --d-rank: #19b468;
   --f-rank: #a6a6a4;
+  --no-rank: var(--name-gray);
 
 }
 
@@ -247,7 +248,7 @@ body {
 }
 
 .ranking__entry .company {
-  color: var(--ranking-affil-gray); 
+  color: var(--ranking-affil-gray);
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 9px;
@@ -263,5 +264,6 @@ body {
 .flex-container {
   display: flex;
   flex-wrap: wrap-reverse;
+  align-items: center;
   justify-content: center;
 }
