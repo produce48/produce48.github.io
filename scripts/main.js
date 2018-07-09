@@ -77,7 +77,7 @@ function newRanking() {
 // TODO: this site might be slow to rerender because it clears + adds everything each time
 function rerenderTable() {
   clearTable();
-  populateTable(trainees);
+  populateTable(filteredTrainees);
   // populateRanking();
 }
 
@@ -96,9 +96,6 @@ function removeAllChildren(element) {
 // Clears out the table
 function clearTable() {
   let table = document.getElementById("table__entry-container");
-  // while (table.firstChild) {
-  //   table.removeChild(table.firstChild);
-  // }
   removeAllChildren(table);
 }
 
@@ -112,9 +109,6 @@ function clearRanking() {
     let rankRow = rankRows[i];
     for (let j = 0; j < rowNums[i]; j++) {
       removeAllChildren(rankRow);
-      // while (rankRow.firstChild) {
-      //   rankRow.removeChild(rankRow.firstChild);
-      // }
     }
   }
 }
@@ -173,13 +167,7 @@ function populateRanking() {
     for (let j = 0; j < rowNums[i]; j++) {
       let currTrainee = ranking[currRank-1];
       rankRow.insertAdjacentHTML("beforeend", populateRankingEntry(currTrainee, currRank))
-      // clone and change the ranking number
-      // let newEntry = rankEntry.cloneNode(true);
-      // let badge = newEntry.getElementsByClassName(
-      //   "ranking__entry-icon-badge"
-      // )[0];
-      // badge.textContent = currRank;
-      // rankRow.appendChild(newEntry);
+      // add event listener to remove item
       let insertedEntry = rankRow.lastChild;
       insertedEntry.addEventListener("click", function(event) {
       	rankingClicked(currTrainee);
@@ -250,6 +238,15 @@ function rankingClicked(trainee) {
 	rerenderRanking();
 }
 
+function filterTrainees(event) {
+  let filterText = event.target.value.toLowerCase();
+  filteredTrainees = trainees.filter(function (trainee) {
+    return trainee.name_romanized.toLowerCase().includes(filterText) ||
+      trainee.company.toLowerCase().includes(filterText);
+  });
+  rerenderTable();
+}
+
 // Finds the first blank spot for
 function addRankedTrainee(trainee) {
   for (let i = 0; i < ranking.length; i++) {
@@ -274,6 +271,8 @@ function removeRankedTrainee(trainee) {
 
 // holds the list of all trainees
 var trainees = [];
+// holds the list of trainees to be shown on the table
+var filteredTrainees = [];
 // holds the ordered list of rankings that the user selects
 var ranking = newRanking();
 const rowNums = [1, 2, 4, 5];
