@@ -1,15 +1,20 @@
 /* define constants up here */
 :root {
   --banner-bg-start: #fd5e6d;
-  --banner-bg-end: #eb3362;
+  --banner-bg-end: #ef5079;
   /* --banner-bg-color: #f083b4; */
-  --produce-gray: #cfcfcf;
+  --produce-gray: #e4e4e4;
+  --search-text-gray: #949494;
   --search-gray: #f2f2f2;
+  --affil-gray: #909090;
+  --name-gray: #2b2b2b;
+  --other-name-gray: #444444;
+  --ranking-affil-gray: #989898;
 
   --checked-blue: #052ae2CC;
 
   /* ranking border colors */
-  --a-rank: #fb1168;
+  --a-rank: #fb4a8c;
   --b-rank: #fc840c;
   --c-rank: #ffc407;
   --d-rank: #19b468;
@@ -55,8 +60,8 @@ body {
   height: 60vh;
   min-height: 400px;
   width: 300px;
-  box-shadow: 0 0 20px 1px var(--produce-gray);
-  border-radius: 10px;
+  /* box-shadow: 0 0 20px 1px var(--produce-gray); */
+  border-radius: 8px;
   border: 1px solid var(--produce-gray);
   margin: 10px;
   display: flex;
@@ -72,7 +77,7 @@ body {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: var(--search-gray);
   border: none;
   outline: 0;
@@ -83,7 +88,7 @@ body {
   background-repeat: no-repeat;
 }
 ::placeholder {
-  color: var(--produce-gray);
+  color: var(--search-text-gray);
 }
 
 /* Styles for table entries */
@@ -93,7 +98,11 @@ body {
 .table__entry {
   display: flex;
   align-items: flex-start;
+  border-bottom: 1px solid var(--produce-gray);
   cursor: pointer;
+}
+.table__entry:last-child {
+	border-bottom: none;
 }
 .table__entry:hover {
   background-color: #f0f0f0;
@@ -102,7 +111,7 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  margin: 5px;
+  margin: 6px 8px;
   display: block;
   box-sizing: border-box;
   position: relative;
@@ -160,30 +169,29 @@ body {
 }
 .table__entry-text .name {
   font-size: 12px;
-  color: black;
+  color: var(--name-gray);
 }
 .table__entry .hangul {
-  color: gray;
   font-size: 12px;
+  color: var(--other-name-gray);
 }
 .table__entry .company {
-  color: lightgray;
-  font-size: 12px;
+  font-size: 10px;
+  color: var(--affil-gray);
   display: block;
 }
 
 /* Ranking Styles */
 #ranking__pyramid {
   /* min-width: 350px; */
-  margin: 10px;
-  margin-top: 20px;
+  margin: 30px 40px 10px 40px;
   display: flex;
   flex-direction: column;
 }
 #ranking__title {
   text-align: center;
   font-family: 'Roboto Condensed', sans-serif;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 .ranking__row {
   display: flex;
@@ -194,8 +202,7 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 10px 20px 8px 20px;
   display: inline-block;
   box-sizing: border-box;
   position: relative;
@@ -233,13 +240,19 @@ body {
   color: white;
 }
 .ranking__row-text {
-  font-family: 'Roboto Condensed', sans-serif;
-  font-size: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
+
 .ranking__entry .company {
-  color: gray; /* fix this color plis :( */
+  color: var(--ranking-affil-gray); 
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.2px;
+  margin-top: -0.5px;
 }
 
 /* Generic Styles */
