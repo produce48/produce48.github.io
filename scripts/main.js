@@ -25,6 +25,7 @@ trainee: {
   name_japanese: ...
   company: ...
   grade: ...
+  birthyear: ...
   image: ...
   selected: ... // whether user selected them
 }
@@ -43,9 +44,9 @@ function convertCSVArrayToTraineeData(csvArrays) {
     }
     trainee.company = traineeArray[3];
     trainee.grade = traineeArray[4];
+    trainee.birthyear = traineeArray[5];
     trainee.image =
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
-    console.log(trainee);
     return trainee;
   });
   return trainees;
@@ -153,7 +154,8 @@ function populateTableEntry(trainee) {
     <div class="table__entry-text">
       <span class="name"><strong>${trainee.name_romanized}</strong></span>
       <span class="hangul">(${trainee.name_hangul})</span>
-      <span class="company">${trainee.company.toUpperCase()}</span>
+      <span class="companyandyear">${trainee.company.toUpperCase()} • 
+      ${trainee.birthyear}</span>
     </div>
   </div>`;
   return tableEntry;
@@ -169,7 +171,8 @@ function populateRanking() {
   for (let i = 0; i < rowNums.length; i++) {
     let rankRow = rankRows[i];
     for (let j = 0; j < rowNums[i]; j++) {
-      rankRow.insertAdjacentHTML("beforeend", populateRankingEntry(ranking[currRank - 1], currRank))
+      let currTrainee = ranking[currRank-1];
+      rankRow.insertAdjacentHTML("beforeend", populateRankingEntry(currTrainee, currRank))
       // clone and change the ranking number
       // let newEntry = rankEntry.cloneNode(true);
       // let badge = newEntry.getElementsByClassName(
@@ -177,6 +180,10 @@ function populateRanking() {
       // )[0];
       // badge.textContent = currRank;
       // rankRow.appendChild(newEntry);
+      let insertedEntry = rankRow.lastChild;
+	  insertedEntry.addEventListener("click", function(event) {
+      	rankingClicked(currTrainee);
+      });
       currRank++;
     }
   }
@@ -221,9 +228,19 @@ function tableClicked(trainee) {
     // Add the trainee to the ranking
     addRankedTrainee(trainee);
   }
-  console.log(trainee);
   rerenderTable();
   rerenderRanking();
+}
+
+// Event handler for ranking 
+function rankingClicked(trainee) {
+	if (trainee.selected) {
+    trainee.selected = !trainee.selected;
+    // Remove the trainee from the ranking
+    removeRankedTrainee(trainee);
+  	}
+  	rerenderTable();
+	rerenderRanking();
 }
 
 // Finds the first blank spot for
@@ -251,7 +268,7 @@ var trainees = [];
 // holds the ordered list of rankings that the user selects
 var ranking = newRanking();
 const rowNums = [1, 2, 4, 5];
-window.addEventListener("load", function () {
+//window.addEventListener("load", function () {
   populateRanking();
   readFromCSV("./trainee_info.csv");
-});
+//});

@@ -179,7 +179,7 @@ body {
   font-size: 12px;
   color: var(--other-name-gray);
 }
-.table__entry .company {
+.table__entry .companyandyear {
   font-size: 10px;
   color: var(--affil-gray);
   display: block;
