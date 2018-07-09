@@ -182,17 +182,28 @@ function populateRanking() {
   }
 }
 
+const abbreviatedCompanies = {
+  "RAINBOW BRIDGE WORLD": "RBW",
+  "BLOCKBERRY CREATIVE": "BBC",
+  "INDIVIDUAL TRAINEE": "INDIVIDUAL",
+}
+
 function populateRankingEntry(trainee, currRank) {
+  let modifiedCompany = trainee.company.toUpperCase();
+  modifiedCompany = modifiedCompany.replace("ENTERTAINMENT", "ENT.");
+  if (abbreviatedCompanies[modifiedCompany]) {
+    modifiedCompany = abbreviatedCompanies[modifiedCompany];
+  }
   const rankingEntry = `
   <div class="ranking__entry">
     <div class="ranking__entry-icon">
       <img class="ranking__entry-img" src="assets/trainees/${trainee.image}" />
       <div class="ranking__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border"></div>
-      <div class="ranking__entry-icon-badge">${currRank}</div>
+      <div class="ranking__entry-icon-badge bg-${trainee.grade.toLowerCase()}">${currRank}</div>
     </div>
     <div class="ranking__row-text">
       <div class="name"><strong>${trainee.name_romanized}</strong></div>
-      <div class="company">${trainee.company.toUpperCase()}</div>
+      <div class="company">${modifiedCompany}</div>
     </div>
   </div>`;
   return rankingEntry;
@@ -240,5 +251,7 @@ var trainees = [];
 // holds the ordered list of rankings that the user selects
 var ranking = newRanking();
 const rowNums = [1, 2, 4, 5];
-readFromCSV("./trainee_info.csv");
-populateRanking();
+window.addEventListener("load", function () {
+  populateRanking();
+  readFromCSV("./trainee_info.csv");
+});

@@ -19,7 +19,7 @@
   --c-rank: #ffc407;
   --d-rank: #19b468;
   --f-rank: #a6a6a4;
-  --no-rank: var(--name-gray);
+  --no-rank: #707070;
 
 }
 
@@ -163,6 +163,9 @@ body {
 .f-rank-border {
   border: 5px solid var(--f-rank);
 }
+.no-rank-border {
+  border: none;
+}
 
 .table__entry-text {
   margin: auto 5px auto 5px;
@@ -245,6 +248,26 @@ body {
   font-size: 11px;
   text-align: center;
   margin-bottom: 4px;
+}
+
+/* Styles for different badge colors */
+.bg-no {
+  background-color: var(--no-rank);
+}
+.bg-a {
+  background-color: var(--a-rank);
+}
+.bg-b {
+  background-color: var(--b-rank);
+}
+.bg-c {
+  background-color: var(--c-rank);
+}
+.bg-d {
+  background-color: var(--d-rank);
+}
+.bg-f {
+  background-color: var(--f-rank);
 }
 
 .ranking__entry .company {
