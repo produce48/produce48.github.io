@@ -9,6 +9,7 @@
   --affil-gray: #909090;
   --name-gray: #2b2b2b;
   --other-name-gray: #444444;
+  --ranking-affil-gray: #888988;
 
   --checked-blue: #052ae2CC;
 
@@ -97,7 +98,11 @@ body {
 .table__entry {
   display: flex;
   align-items: flex-start;
+  border-bottom: 1px solid var(--produce-gray);
   cursor: pointer;
+}
+.table__entry:last-child {
+	border-bottom: none;
 }
 .table__entry:hover {
   background-color: #f0f0f0;
@@ -106,7 +111,7 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  margin: 5px;
+  margin: 6px 8px;
   display: block;
   box-sizing: border-box;
   position: relative;
@@ -179,15 +184,14 @@ body {
 /* Ranking Styles */
 #ranking__pyramid {
   /* min-width: 350px; */
-  margin: 10px;
-  margin-top: 20px;
+  margin: 30px 0px 10px 80px;
   display: flex;
   flex-direction: column;
 }
 #ranking__title {
   text-align: center;
   font-family: 'Roboto Condensed', sans-serif;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 .ranking__row {
   display: flex;
@@ -198,8 +202,7 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 10px 20px 8px 20px;
   display: inline-block;
   box-sizing: border-box;
   position: relative;
@@ -237,13 +240,19 @@ body {
   color: white;
 }
 .ranking__row-text {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 10px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
+
 .ranking__entry .company {
-  color: gray; /* fix this color plis :( */
+  color: var(--ranking-affil-gray); 
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 8px;
+  letter-spacing: 0.2px;
+  margin-top: -0.5px;
 }
 
 /* Generic Styles */
