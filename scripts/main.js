@@ -49,6 +49,7 @@ function convertCSVArrayToTraineeData(csvArrays) {
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
     return trainee;
   });
+  filteredTrainees = trainees;
   return trainees;
 }
 
