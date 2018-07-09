@@ -239,13 +239,36 @@ function rankingClicked(trainee) {
 	rerenderRanking();
 }
 
+// Controls alternate ways to spell trainee names
+// to add new entries use the following format:
+// <original>: [<alternate1>, <alternate2>, <alternate3>, etc...]
+// <original> is the original name as appearing on csv
+// all of it should be lower case
+const alternateRomanizations = {
+  'heo yunjin': ['heo yoonjin'],
+};
+
 function filterTrainees(event) {
   let filterText = event.target.value.toLowerCase();
+  // filters trainees based on name, alternate names, and company
   filteredTrainees = trainees.filter(function (trainee) {
-    return trainee.name_romanized.toLowerCase().includes(filterText) ||
-      trainee.company.toLowerCase().includes(filterText);
+    let initialMatch = includesIgnCase(trainee.name_romanized, filterText) || includesIgnCase(trainee.company, filterText);
+    // if alernates exists then check them as well
+    let alternateMatch = false;
+    let alternates = alternateRomanizations[trainee.name_romanized.toLowerCase()]
+    if (alternates) {
+      for (let i = 0; i < alternates.length; i++) {
+        alternateMatch = alternateMatch || includesIgnCase(alternates[i], filterText);
+      }
+    }
+    return initialMatch || alternateMatch;
   });
   rerenderTable();
+}
+
+// Checks if mainString includes a subString and ignores case
+function includesIgnCase(mainString, subString) {
+  return mainString.toLowerCase().includes(subString.toLowerCase());
 }
 
 // Finds the first blank spot for
