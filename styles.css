@@ -191,7 +191,6 @@ body {
 #ranking__title {
   text-align: center;
   font-family: 'Roboto Condensed', sans-serif;
-  margin-bottom: 5px;
 }
 .ranking__row {
   display: flex;
@@ -202,7 +201,7 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  margin: 10px 20px 8px 20px;
+  margin: 14px 20px 8px 20px;
   display: inline-block;
   box-sizing: border-box;
   position: relative;
@@ -243,7 +242,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 11px;
   text-align: center;
-  margin-bottom: 4px;
 }
 
 .ranking__entry .company {
@@ -252,7 +250,6 @@ body {
   font-weight: 600;
   font-size: 9px;
   letter-spacing: 0.2px;
-  margin-top: -0.5px;
 }
 
 /* Generic Styles */
