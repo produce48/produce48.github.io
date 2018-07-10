@@ -245,7 +245,28 @@ function rankingClicked(trainee) {
 // <original> is the original name as appearing on csv
 // all of it should be lower case
 const alternateRomanizations = {
-  'heo yunjin': ['heo yoonjin'],
+  'heo yunjin': ['heo yoonjin', 'huh yoonjin', 'huh yunjin'],
+  'go yujin': ['ko yoojin', 'ko yujin', 'go yoojin'],
+  'kim yubin': ['kim yoobin'],
+  'lee yoojun': ['lee yujeong'],
+  'shin suhyun': ['shin soohyun', 'shin soohyeon', 'shin suhyeon'],
+  'jo ahyoung': ['cho ahyoung', 'cho ahyeong'],
+  'yu minyoung': ['yoo minyeong', 'yu minyeong', 'yoo minyoung'],
+  'park haeyoon': ['park haeyun'],
+  'park jinhee': ['jinny park'],
+  'jo sarang': ['cho sarang'],
+  'park chanju': ['park chanjoo'],
+  'lee gaeun': ['lee kaeun'],
+  'na goeun': ['na koeun'],
+  'ahn yujin': ['ahn yoojin'],
+  'jo gahyun': ['cho gahyun', 'jo kahyun', 'cho kahyun', 'jo kahyeon', 'cho kahyeon'],
+  'jo yuri': ['cho yuri'],
+  'yoon haesol': ['yun haesol'],
+  'kim minju': ['kim minjoo'],
+  'lee seunghyun': ['lee seunghyeon'],
+  'jo yeongin': ['cho yeongin', 'cho youngin', 'jo youngin'],
+  'kim suyun': ['kim sooyoon'],
+  'kim sihyun': ['kim shihyun', 'kim sihyeon']
 };
 
 function filterTrainees(event) {
