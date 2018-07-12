@@ -9,7 +9,7 @@
   --name-gray: #2b2b2b;
   --other-name-gray: #444444;
   --ranking-affil-gray: #989898;
-  --save-box-gray: #9c9c9c;
+  --save-box-gray: #b1b1b1;
 
   --checked-blue: #052ae2CC;
 
@@ -123,12 +123,13 @@ body {
 }
 #getlink-textbox {
   margin-left: 5px;
-  border: 1px solid var(--affil-gray);
+  border: 1px solid var(--save-box-gray);
   border-radius: 3px;
   box-sizing: border-box;
   padding: 5px;
   padding-right: 50px;
   flex: 1;
+  display:none;
 }
 #copylink-button {
   height: inherit;
@@ -138,6 +139,7 @@ body {
   border-radius: 0px 3px 3px 0;
   background-color: var(--save-box-gray);
   font-weight: 700;
+  display:none;
 }
 #copylink-button:active { /* these styles are active while copylink is being pressed */
   background-color: var(--other-name-gray);

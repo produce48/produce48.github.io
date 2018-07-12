@@ -377,6 +377,8 @@ function generateShareLink() {
 function showShareLink(shareURL) {
   let shareBox = document.getElementById("getlink-textbox");
   shareBox.value = shareURL;
+  document.getElementById("getlink-textbox").style.display = "block";
+  document.getElementById("copylink-button").style.display = "block";
 }
 
 function copyLink() {
