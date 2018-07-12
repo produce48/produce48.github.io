@@ -15,7 +15,7 @@ function readFromCSV(path) {
   rawFile.send(null);
 }
 
-// If the user has saved a ranking via id then recover it here
+// If the user has saved a ranking via id, then recover it here
 function getRanking() {
   var urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has("r")) {
@@ -37,6 +37,9 @@ function getRanking() {
         ranking[i] = trainee;
       }
     }
+    // refresh table to show checkboxes
+    rerenderTable();
+    // refresh ranking to show newly inserted trainees
     rerenderRanking();
     console.log(ranking);
   }
