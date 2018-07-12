@@ -2,7 +2,6 @@
 :root {
   --banner-bg-start: #fd5e6d;
   --banner-bg-end: #ef5079;
-  /* --banner-bg-color: #f083b4; */
   --produce-gray: #e4e4e4;
   --search-text-gray: #949494;
   --search-gray: #f2f2f2;
@@ -29,6 +28,9 @@ p {
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  /*TODO: I had the weirdest bug where if i don't have this background white the top banner would disappear
+  it's super late right now and I'm not sure what is going on i need to look into this later */
+  background-color: white;
 }
 
 /* Styles for banner */
@@ -165,6 +167,9 @@ body {
 .no-rank-border {
   border: none;
 }
+.ranking__entry-icon-border.dragged-over { /* defines a border for when you drag over this element */
+  border: 5px solid var(--checked-blue);
+}
 
 .table__entry-text {
   margin: auto 5px auto 5px;
@@ -200,11 +205,16 @@ body {
   flex-direction: row;
   justify-content: center;
 }
-.ranking__entry-icon {
-  border-radius: 50%;
+.ranking__entry-view {
+  position: relative;
   width: 60px;
   height: 60px;
   margin: 10px 24px 8px 24px;
+}
+.ranking__entry-icon {
+  border-radius: 50%;
+  width: inherit;
+  height: inherit;
   display: inline-block;
   box-sizing: border-box;
   position: relative;
@@ -285,4 +295,9 @@ body {
   flex-wrap: wrap-reverse;
   align-items: center;
   justify-content: center;
+}
+
+.drag-cursor {
+  cursor: -webkit-grab;
+  cursor: grab;
 }

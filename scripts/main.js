@@ -168,11 +168,28 @@ function populateRanking() {
     for (let j = 0; j < rowNums[i]; j++) {
       let currTrainee = ranking[currRank-1];
       rankRow.insertAdjacentHTML("beforeend", populateRankingEntry(currTrainee, currRank))
-      // add event listener to remove item
+
       let insertedEntry = rankRow.lastChild;
-      insertedEntry.addEventListener("click", function(event) {
-      	rankingClicked(currTrainee);
-      });
+      let dragIcon = insertedEntry.children[0].children[0]; // drag icon is just the trainee image and border
+      let iconBorder = dragIcon.children[1]; // this is just the border and the recipient of dragged elements
+      // only add these event listeners if a trainee exists in this slot
+      if (currTrainee.id >= 0) {
+        // add event listener to remove item
+        insertedEntry.addEventListener("click", function (event) {
+          rankingClicked(currTrainee);
+        });
+        // add event listener for dragging
+        console.log(iconBorder);
+        dragIcon.setAttribute('draggable', true);
+        dragIcon.classList.add("drag-cursor");
+        dragIcon.addEventListener("dragstart", createDragStartListener(currRank - 1));
+      }
+      // add event listeners for blank/filled ranking entries
+      iconBorder.addEventListener("dragenter", createDragEnterListener());
+      iconBorder.addEventListener("dragleave", createDragLeaveListener());
+      iconBorder.addEventListener("dragover", createDragOverListener());
+      iconBorder.addEventListener("drop", createDropListener());
+      // }
       currRank++;
     }
   }
@@ -192,9 +209,11 @@ function populateRankingEntry(trainee, currRank) {
   }
   const rankingEntry = `
   <div class="ranking__entry">
-    <div class="ranking__entry-icon">
-      <img class="ranking__entry-img" src="assets/trainees/${trainee.image}" />
-      <div class="ranking__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border"></div>
+    <div class="ranking__entry-view">
+      <div class="ranking__entry-icon">
+        <img class="ranking__entry-img" src="assets/trainees/${trainee.image}" />
+        <div class="ranking__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border" data-rankid="${currRank-1}"></div>
+      </div>
       <div class="ranking__entry-icon-badge bg-${trainee.grade.toLowerCase()}">${currRank}</div>
     </div>
     <div class="ranking__row-text">
@@ -237,6 +256,13 @@ function rankingClicked(trainee) {
   }
   rerenderTable();
 	rerenderRanking();
+}
+
+function swapTrainees(index1, index2) {
+  tempTrainee = ranking[index1];
+  ranking[index1] = ranking[index2];
+  ranking[index2] = tempTrainee;
+  rerenderRanking();
 }
 
 // Controls alternate ways to spell trainee names
@@ -312,7 +338,6 @@ function removeRankedTrainee(trainee) {
   }
   return false;
 }
-
 
 // holds the list of all trainees
 var trainees = [];
