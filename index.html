@@ -16,26 +16,47 @@
     <p id="banner-subtitle">Make your own top 12!</p>
   </div>
   <div class="flex-container padded-box">
-    <div id="table">
+    <div>
       <div id="tooltip-container">
         <!-- add tool tip faq stuff here -->
       </div>
-      <div id="table__filter-container">
-        <input id="table__filter-input" oninput="filterTrainees(event)" type="text" placeholder="Search"/>
+      <div id="table">
+        <div id="table__filter-container">
+          <input id="table__filter-input" oninput="filterTrainees(event)" type="text" placeholder="Search"/>
+        </div>
+        <div id="table__entry-container">
+          <!-- <div class="table__entry">
+            <div class="table__entry-icon">
+              <img class="table__entry-img" src="assets/trainees/LeeGaeun.jpg" />
+              <div class="table__entry-icon-border a-rank-border"></div>
+              <img class="table__entry-check" src="assets/check.png"/>
+            </div>
+            <div class="table__entry-text">
+              <strong><span class="name">Lee Gaeun</span></strong>
+              <span class="hangul">(이가은)</span>
+              <span class="company">PLEDIS ENTERTAINMENT</span>
+            </div>
+          </div> -->
+        </div>
       </div>
-      <div id="table__entry-container">
-        <!-- <div class="table__entry">
-          <div class="table__entry-icon">
-            <img class="table__entry-img" src="assets/trainees/LeeGaeun.jpg" />
-            <div class="table__entry-icon-border a-rank-border"></div>
-            <img class="table__entry-check" src="assets/check.png"/>
-          </div>
-          <div class="table__entry-text">
-            <strong><span class="name">Lee Gaeun</span></strong>
-            <span class="hangul">(이가은)</span>
-            <span class="company">PLEDIS ENTERTAINMENT</span>
-          </div>
-        </div> -->
+      <div id="filters-container">
+        <div id="filters-header"><strong>Filters</strong></div>
+        <div>
+          <input type="checkbox" name="show-eliminated"/>
+          <label class="checkbox-label" for="show-eliminated">Show Eliminated</label>
+        </div>
+        <div>
+          <input type="checkbox" name="show-top12"/>
+          <label class="checkbox-label" for="show-top12">Show Current Top 12</label>
+        </div>
+      </div>
+      <div id="sharelink-container">
+        <!-- button -->
+        <input type="button" id="getlink-button" value="Get link" onclick="generateShareLink()"/>
+        <!-- text box -->
+        <input type="text" placeholder="link here http://..." id="getlink-textbox" readonly/>
+        <!-- button in text box -->
+        <input type="button" id="copylink-button" value="Copy" onclick="copyLink()"/>
       </div>
     </div>
     <div id="ranking__pyramid">

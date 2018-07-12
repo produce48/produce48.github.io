@@ -93,6 +93,55 @@ body {
   color: var(--search-text-gray);
 }
 
+/* Styles for filtering at bottom of table */
+#filters-container {
+  margin: 10px;
+}
+.checkbox-label {
+  font-size: 12px;
+  color: var(--affil-gray);
+}
+
+/* Styles for share link functionality */
+#sharelink-container {
+  margin: 10px;
+  display: flex;
+}
+#getlink-button {
+  border: none;
+  border-radius: 3px;
+  padding: 3px 6px 3px 6px;
+  background-color: var(--a-rank);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+#getlink-button:active { /* these styles are active while get link is being pressed */
+  background-color: #ff2475;
+}
+#getlink-textbox {
+  margin-left: 5px;
+  border: 1px solid var(--affil-gray);
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 5px;
+  padding-right: 50px;
+  flex: 1;
+}
+#copylink-button {
+  height: inherit;
+  width: 50px;
+  margin-left: -50px;
+  border: 1px solid var(--affil-gray);
+  border-radius: 0px 3px 3px 0;
+  background-color: var(--affil-gray);
+  font-weight: 700;
+}
+#copylink-button:active { /* these styles are active while copylink is being pressed */
+  background-color: var(--other-name-gray);
+}
+
 /* Styles for table entries */
 #table__entry-container {
   overflow-y: scroll;
@@ -167,7 +216,7 @@ body {
 .no-rank-border {
   border: none;
 }
-.ranking__entry-icon-border.dragged-over { /* defines a border for when you drag over this element */
+.ranking__entry-icon-border.dragged-over { /* defines a border for when you drag over a trainee in ranking */
   border: 5px solid var(--checked-blue);
 }
 
@@ -293,7 +342,7 @@ body {
 .flex-container {
   display: flex;
   flex-wrap: wrap-reverse;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 }
 

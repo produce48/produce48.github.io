@@ -15,6 +15,32 @@ function readFromCSV(path) {
   rawFile.send(null);
 }
 
+// If the user has saved a ranking via id then recover it here
+function getRanking() {
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has("r")) {
+    let rankString = atob(urlParams.get("r")) // decode the saved ranking
+    let rankingIds = [];
+    for (let i = 0; i < rankString.length; i += 2) {
+      let traineeId = rankString.substr(i, 2); // get each id of the trainee by substringing every 2 chars
+      rankingIds.push(parseInt(traineeId));
+    }
+    console.log(rankingIds);
+    // use the retrieved rankingIds to populate ranking
+    for (let i = 0; i < rankingIds.length; i++) {
+      traineeId = rankingIds[i];
+      if (traineeId < 0) {
+        ranking[i] = newTrainee();
+      } else {
+        tableClicked(trainees[rankingIds[i]]);
+        // ranking[i] = trainees[rankingIds[i]];
+      }
+    }
+    rerenderRanking();
+    console.log(ranking);
+  }
+}
+
 // Takes in an array of trainees and converts it to js objects
 // Follows this schema:
 /*
@@ -113,10 +139,6 @@ function clearRanking() {
     }
   }
 }
-
-// If the user has saved a ranking via id then recover it here
-// returns: List of ranked trainees
-function getRanking() {}
 
 // Uses populated local data structure from readFromCSV to populate table
 function populateTable(trainees) {
@@ -339,6 +361,29 @@ function removeRankedTrainee(trainee) {
   return false;
 }
 
+const currentURL = "localhost:8000/";
+// Serializes the ranking into a string and appends that to the current URL
+function generateShareLink() {
+  let shareCode = ranking.map(function (trainee) {
+    let twoCharID = ("0" + trainee.id).slice(-2); // adds a zero to front of digit if necessary e.g 1 --> 01
+    return twoCharID;
+  }).join("");
+  shareCode = btoa(shareCode);
+  shareURL = currentURL + "?r=" + shareCode;
+  showShareLink(shareURL);
+}
+
+function showShareLink(shareURL) {
+  let shareBox = document.getElementById("getlink-textbox");
+  shareBox.value = shareURL;
+}
+
+function copyLink() {
+  let shareBox = document.getElementById("getlink-textbox");
+  shareBox.select();
+  document.execCommand("copy");
+}
+
 // holds the list of all trainees
 var trainees = [];
 // holds the list of trainees to be shown on the table
@@ -350,3 +395,5 @@ const rowNums = [1, 2, 4, 5];
   populateRanking();
   readFromCSV("./trainee_info.csv");
 //});
+// checks the URL for a ranking and uses it to populate ranking
+getRanking();
