@@ -9,6 +9,7 @@
   --name-gray: #2b2b2b;
   --other-name-gray: #444444;
   --ranking-affil-gray: #989898;
+  --save-box-gray: #9c9c9c;
 
   --checked-blue: #052ae2CC;
 
@@ -59,8 +60,8 @@ body {
 
 /* Styles for table */
 #table {
-  height: 60vh;
-  min-height: 400px;
+  height: 40vh;
+  min-height: 350px;
   width: 300px;
   box-shadow: 0px 2px 4px 0.1px var(--produce-gray);
   border-radius: 8px;
@@ -110,7 +111,7 @@ body {
 #getlink-button {
   border: none;
   border-radius: 3px;
-  padding: 3px 6px 3px 6px;
+  padding: 4px 6px 4px 6px;
   background-color: var(--a-rank);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -133,9 +134,9 @@ body {
   height: inherit;
   width: 50px;
   margin-left: -50px;
-  border: 1px solid var(--affil-gray);
+  border: 1px solid var(--save-box-gray);
   border-radius: 0px 3px 3px 0;
-  background-color: var(--affil-gray);
+  background-color: var(--save-box-gray);
   font-weight: 700;
 }
 #copylink-button:active { /* these styles are active while copylink is being pressed */
@@ -241,7 +242,7 @@ body {
 /* Ranking Styles */
 #ranking__pyramid {
   /* min-width: 350px; */
-  margin: 30px 40px 10px 40px;
+  margin: 40px 40px 10px 40px;
   display: flex;
   flex-direction: column;
 }
