@@ -6,7 +6,6 @@ const rankIndex = "rankIndex";
 function createDragStartListener(tempRank) {
   return function (event) {
     event.dataTransfer.setData(rankIndex, tempRank)
-    console.log(event.dataTransfer.getData(rankIndex));
   }
 }
 

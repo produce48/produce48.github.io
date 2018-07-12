@@ -32,8 +32,9 @@ function getRanking() {
       if (traineeId < 0) {
         ranking[i] = newTrainee();
       } else {
-        tableClicked(trainees[rankingIds[i]]);
-        // ranking[i] = trainees[rankingIds[i]];
+        let trainee = trainees[rankingIds[i]];
+        trainee.selected = true;
+        ranking[i] = trainee;
       }
     }
     rerenderRanking();
@@ -201,7 +202,6 @@ function populateRanking() {
           rankingClicked(currTrainee);
         });
         // add event listener for dragging
-        console.log(iconBorder);
         dragIcon.setAttribute('draggable', true);
         dragIcon.classList.add("drag-cursor");
         dragIcon.addEventListener("dragstart", createDragStartListener(currRank - 1));
@@ -368,6 +368,7 @@ function generateShareLink() {
     let twoCharID = ("0" + trainee.id).slice(-2); // adds a zero to front of digit if necessary e.g 1 --> 01
     return twoCharID;
   }).join("");
+  console.log(shareCode);
   shareCode = btoa(shareCode);
   shareURL = currentURL + "?r=" + shareCode;
   showShareLink(shareURL);
