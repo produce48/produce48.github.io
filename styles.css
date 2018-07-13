@@ -29,6 +29,8 @@ p {
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  display: inline-block;
+  min-width: 100%;
   /*TODO: I had the weirdest bug where if i don't have this background white the top banner would disappear
   it's super late right now and I'm not sure what is going on i need to look into this later */
   background-color: white;
