@@ -54,10 +54,12 @@ trainee: {
   name_hangul: ...
   name_japanese: ...
   company: ...
-  grade: ...
+  grade: a/b/c/d/f
   birthyear: ...
   image: ...
-  selected: ... // whether user selected them
+  selected: false/true // whether user selected them
+  eliminated: false/true
+  top12: false/true
 }
 */
 function convertCSVArrayToTraineeData(csvArrays) {
@@ -75,6 +77,8 @@ function convertCSVArrayToTraineeData(csvArrays) {
     trainee.company = traineeArray[3];
     trainee.grade = traineeArray[4];
     trainee.birthyear = traineeArray[5];
+    trainee.eliminated = traineeArray[6] === 'e'; // sets trainee to be eliminated if 'e' appears in 6th col
+    trainee.top12 = traineeArray[6] === 't'; // sets trainee to top 12 if 't' appears in 6th column
     trainee.image =
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
     return trainee;
@@ -87,8 +91,8 @@ function convertCSVArrayToTraineeData(csvArrays) {
 function newTrainee() {
   return {
     id: -1, // -1 denotes a blank trainee spot
-    name_romanized: '&#8203;',
-    company: '&#8203;',
+    name_romanized: '&#8203;', // this is a blank character
+    company: '&#8203;', // this is a blank character
     grade: 'no',
     image: 'emptyrank.png',
   };
@@ -150,26 +154,32 @@ function populateTable(trainees) {
   let table = document.getElementById("table__entry-container");
   exampleEntry = table.children[0];
   for (let i = 0; i < trainees.length; i++) {
-    // generate and insert the html for a new trainee table entry
-    table.insertAdjacentHTML("beforeend", populateTableEntry(trainees[i]));
-    // add the click listener to the just inserted element
-    let insertedEntry = table.lastChild;
-    insertedEntry.addEventListener("click", function(event) {
-      tableClicked(trainees[i]);
-    });
+    // if (!trainees[i].eliminated || showEliminated) { // only show current trainees unless user clicked show eliminated
+      // generate and insert the html for a new trainee table entry
+      table.insertAdjacentHTML("beforeend", populateTableEntry(trainees[i]));
+      // add the click listener to the just inserted element
+      let insertedEntry = table.lastChild;
+      insertedEntry.addEventListener("click", function (event) {
+        tableClicked(trainees[i]);
+      });
+    // }
   }
 }
 
 function populateTableEntry(trainee) {
+  // eliminated will have value "eliminated" only if trainee is eliminated and showEliminated is true, otherwise this is ""
+  let eliminated = (showEliminated && trainee.eliminated) && "eliminated";
+  let top12 = (showTop12 && trainee.top12) && "top12";
   const tableEntry = `
-  <div class="table__entry">
+  <div class="table__entry ${eliminated}">
     <div class="table__entry-icon">
       <img class="table__entry-img" src="assets/trainees/${trainee.image}" />
       <div class="table__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border"></div>
       ${
-        trainee.selected
-          ? '<img class="table__entry-check" src="assets/check.png"/>'
-          : ""
+        top12 ? '<div class="table__entry-icon-crown"></div>' : ''
+      }
+      ${
+        trainee.selected ? '<img class="table__entry-check" src="assets/check.png"/>' : ""
       }
     </div>
     <div class="table__entry-text">
@@ -232,14 +242,19 @@ function populateRankingEntry(trainee, currRank) {
   if (abbreviatedCompanies[modifiedCompany]) {
     modifiedCompany = abbreviatedCompanies[modifiedCompany];
   }
+  let eliminated = (showEliminated && trainee.eliminated) && "eliminated";
+  let top12 = (showTop12 && trainee.top12) && "top12";
   const rankingEntry = `
-  <div class="ranking__entry">
+  <div class="ranking__entry ${eliminated}">
     <div class="ranking__entry-view">
       <div class="ranking__entry-icon">
         <img class="ranking__entry-img" src="assets/trainees/${trainee.image}" />
         <div class="ranking__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border" data-rankid="${currRank-1}"></div>
       </div>
       <div class="ranking__entry-icon-badge bg-${trainee.grade.toLowerCase()}">${currRank}</div>
+      ${
+        top12 ? '<div class="ranking__entry-icon-crown"></div>' : ''
+      }
     </div>
     <div class="ranking__row-text">
       <div class="name"><strong>${trainee.name_romanized}</strong></div>
@@ -320,6 +335,7 @@ const alternateRomanizations = {
   'kim sihyun': ['kim shihyun', 'kim sihyeon']
 };
 
+// uses the current filter text to create a subset of trainees with matching info
 function filterTrainees(event) {
   let filterText = event.target.value.toLowerCase();
   // filters trainees based on name, alternate names, and company
@@ -335,6 +351,7 @@ function filterTrainees(event) {
     }
     return initialMatch || alternateMatch;
   });
+  filteredTrainees = sortedTrainees(filteredTrainees);
   rerenderTable();
 }
 
