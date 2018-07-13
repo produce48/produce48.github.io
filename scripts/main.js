@@ -65,7 +65,6 @@ trainee: {
 function convertCSVArrayToTraineeData(csvArrays) {
   trainees = csvArrays.map(function(traineeArray, index) {
     trainee = {};
-    trainee.id = index;
     trainee.name_romanized = traineeArray[0];
     if (traineeArray[2] === "-") {
       // trainee only has hangul
@@ -79,6 +78,7 @@ function convertCSVArrayToTraineeData(csvArrays) {
     trainee.birthyear = traineeArray[5];
     trainee.eliminated = traineeArray[6] === 'e'; // sets trainee to be eliminated if 'e' appears in 6th col
     trainee.top12 = traineeArray[6] === 't'; // sets trainee to top 12 if 't' appears in 6th column
+    trainee.id = parseInt(traineeArray[7]); // trainee id is the original ordering of the trainees in the first csv
     trainee.image =
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
     return trainee;
