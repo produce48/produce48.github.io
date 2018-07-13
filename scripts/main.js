@@ -154,15 +154,13 @@ function populateTable(trainees) {
   let table = document.getElementById("table__entry-container");
   exampleEntry = table.children[0];
   for (let i = 0; i < trainees.length; i++) {
-    // if (!trainees[i].eliminated || showEliminated) { // only show current trainees unless user clicked show eliminated
-      // generate and insert the html for a new trainee table entry
-      table.insertAdjacentHTML("beforeend", populateTableEntry(trainees[i]));
-      // add the click listener to the just inserted element
-      let insertedEntry = table.lastChild;
-      insertedEntry.addEventListener("click", function (event) {
-        tableClicked(trainees[i]);
-      });
-    // }
+    // generate and insert the html for a new trainee table entry
+    table.insertAdjacentHTML("beforeend", populateTableEntry(trainees[i]));
+    // add the click listener to the just inserted element
+    let insertedEntry = table.lastChild;
+    insertedEntry.addEventListener("click", function (event) {
+      tableClicked(trainees[i]);
+    });
   }
 }
 
