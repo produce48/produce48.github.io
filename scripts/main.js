@@ -15,6 +15,15 @@ function readFromCSV(path) {
   rawFile.send(null);
 }
 
+function findTraineeById(id) {
+  for (let i = 0; i < trainees.length; i++) {
+    if (id === trainees[i].id) { // if trainee's match
+      return trainees[i];
+    }
+  }
+  return newTrainee();
+}
+
 // If the user has saved a ranking via id, then recover it here
 function getRanking() {
   var urlParams = new URLSearchParams(window.location.search);
@@ -32,7 +41,8 @@ function getRanking() {
       if (traineeId < 0) {
         ranking[i] = newTrainee();
       } else {
-        let trainee = trainees[rankingIds[i]];
+        let trainee = findTraineeById(rankingIds[i])
+        // let trainee = trainees[rankingIds[i]];
         trainee.selected = true;
         ranking[i] = trainee;
       }
@@ -78,7 +88,7 @@ function convertCSVArrayToTraineeData(csvArrays) {
     trainee.birthyear = traineeArray[5];
     trainee.eliminated = traineeArray[6] === 'e'; // sets trainee to be eliminated if 'e' appears in 6th col
     trainee.top12 = traineeArray[6] === 't'; // sets trainee to top 12 if 't' appears in 6th column
-    trainee.id = parseInt(traineeArray[7]-1); // trainee id is the original ordering of the trainees in the first csv
+    trainee.id = parseInt(traineeArray[7]) - 1; // trainee id is the original ordering of the trainees in the first csv
     trainee.image =
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".jpg";
     return trainee;
