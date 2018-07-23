@@ -15,10 +15,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Produce 48 Ranker</title>
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <meta name="viewport" content="initial-scale = 2.0, maximum-scale=1.0" />
+  <meta name="viewport" content="width=600 user-scalable=no" />
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto+Condensed:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="scripts/mobile-drag-drop/release/default.css">
 </head>
 <body>
   <div id="top-banner">
@@ -93,9 +94,16 @@
 
   <!-- Load in script files -->
   <script src="scripts/csv.js"></script>
-  <script src="scripts/dragula.min.js"></script>
   <script src="scripts/dragdrop.js"></script>
   <script src="scripts/traineesort.js"></script>
+  <script src="scripts/mobile-drag-drop/release/index.min.js"></script>
+  <script>
+    // options are optional ;)
+    MobileDragDrop.polyfill({
+        // use this to make use of the scroll behaviour
+        dragImageTranslateOverride: MobileDragDrop.scrollBehaviourDragImageTranslateOverride
+    });
+  </script>
   <script src="scripts/main.js"></script>
 
 </body>

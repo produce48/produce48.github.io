@@ -3,14 +3,18 @@
 const draggedOverClass = "dragged-over";
 const rankIndex = "rankIndex";
 
+// workaround required to enable mobile drag drop on safari/ios devices
+window.addEventListener( 'touchmove', function() {})
+
 function createDragStartListener(tempRank) {
   return function (event) {
-    event.dataTransfer.setData(rankIndex, tempRank)
+    event.dataTransfer.setData(rankIndex, tempRank + 1);
   }
 }
 
 function createDragEnterListener() {
   return function (event) {
+    event.preventDefault();
     let elem = event.target;
     addClass(elem, draggedOverClass);
   }
@@ -18,6 +22,7 @@ function createDragEnterListener() {
 
 function createDragLeaveListener() {
   return function (event) {
+    event.preventDefault();
     let elem = event.target;
     removeClass(elem, draggedOverClass);
   }
@@ -37,7 +42,7 @@ function createDropListener() {
     draggedTraineeIndex = event.dataTransfer.getData(rankIndex);
     droppedTraineeIndex = elem.getAttribute("data-rankid");
     // swap them
-    swapTrainees(draggedTraineeIndex, droppedTraineeIndex);
+    swapTrainees(draggedTraineeIndex - 1, droppedTraineeIndex);
     // removeClass(elem, draggedOverClass);
   }
 }
